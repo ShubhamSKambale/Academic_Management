@@ -1,14 +1,9 @@
 package com.AcademicaPro.entity;
 
-
-
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+import java.util.List;
 
 @Entity
-
 public class Faculty {
 
     @Id
@@ -16,12 +11,12 @@ public class Faculty {
     private Long id;
 
     private String name;
-
     private String department;
-
     private String email;
-
     private String phone;
+
+    @OneToMany(mappedBy = "faculty")
+    private List<ClassSchedule> classSchedules;
 
     // Getters and Setters
     public Long getId() {
@@ -62,5 +57,13 @@ public class Faculty {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public List<ClassSchedule> getClassSchedules() {
+        return classSchedules;
+    }
+
+    public void setClassSchedules(List<ClassSchedule> classSchedules) {
+        this.classSchedules = classSchedules;
     }
 }

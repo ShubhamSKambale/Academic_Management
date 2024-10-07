@@ -1,12 +1,6 @@
 package com.AcademicaPro.entity;
 
-
-
-
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
 public class ClassSchedule {
@@ -16,12 +10,13 @@ public class ClassSchedule {
     private Long id;
 
     private String subject;
-
     private String startTime;
-
     private String endTime;
-
     private String room;
+
+    @ManyToOne
+    @JoinColumn(name = "faculty_id")
+    private Faculty faculty;
 
     // Getters and Setters
     public Long getId() {
@@ -62,5 +57,13 @@ public class ClassSchedule {
 
     public void setRoom(String room) {
         this.room = room;
+    }
+
+    public Faculty getFaculty() {
+        return faculty;
+    }
+
+    public void setFaculty(Faculty faculty) {
+        this.faculty = faculty;
     }
 }

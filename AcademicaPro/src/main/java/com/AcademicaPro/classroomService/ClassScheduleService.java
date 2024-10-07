@@ -1,15 +1,12 @@
 package com.AcademicaPro.classroomService;
 
-
-
-import java.util.List;
-
-import org.hibernate.internal.build.AllowSysOut;
+import com.AcademicaPro.entity.ClassSchedule;
+import com.AcademicaPro.repository.ClassScheduleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.AcademicaPro.entity.ClassSchedule;
-import com.AcademicaPro.repository.ClassScheduleRepository;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ClassScheduleService {
@@ -17,38 +14,19 @@ public class ClassScheduleService {
     @Autowired
     private ClassScheduleRepository classScheduleRepository;
 
-    // Get all class schedules
-    public List<ClassSchedule> getAllClassSchedules() {
+    public List<ClassSchedule> getAllSchedules() {
         return classScheduleRepository.findAll();
     }
 
-    // Get a specific class schedule by ID
-    public ClassSchedule getClassScheduleById(Long id) {
-        return classScheduleRepository.findById(id)
-                .orElseThrow();
+    public Optional<ClassSchedule> getScheduleById(Long id) {
+        return classScheduleRepository.findById(id);
     }
 
-    // Create a new class schedule
-    public ClassSchedule createClassSchedule(ClassSchedule classSchedule) {
+    public ClassSchedule createSchedule(ClassSchedule classSchedule) {
         return classScheduleRepository.save(classSchedule);
     }
 
-    // Update an existing class schedule
-    public ClassSchedule updateClassSchedule(Long id, ClassSchedule updatedClassSchedule) {
-        ClassSchedule classSchedule = getClassScheduleById(id);
-        
-        // Update fields
-        classSchedule.setSubject(updatedClassSchedule.getSubject());
-        classSchedule.setStartTime(updatedClassSchedule.getStartTime());
-        classSchedule.setEndTime(updatedClassSchedule.getEndTime());
-        classSchedule.setRoom(updatedClassSchedule.getRoom());
-
-        return classScheduleRepository.save(classSchedule);
-    }
-
-    // Delete a class schedule by ID
-    public void deleteClassSchedule(Long id) {
-        ClassSchedule classSchedule = getClassScheduleById(id);
-        classScheduleRepository.delete(classSchedule);
+    public void deleteSchedule(Long id) {
+        classScheduleRepository.deleteById(id);
     }
 }
